@@ -1,0 +1,32 @@
+N0REP0
+### opam switch create absolute-path --empty
+### OPAMYES=1
+### ::: Install a package from an absolute path
+### <pkg:foo.1>
+opam-version: "2.0"
+### opam install ${BASEDIR}/OPAM/repo/default/packages/foo/foo.1/opam
+[WARNING] Failed checks on foo package definition from source at file://${BASEDIR}/OPAM/repo/default/packages/foo/foo.1:
+             error 23: Missing field 'maintainer'
+           warning 25: Missing field 'authors'
+           warning 35: Missing field 'homepage'
+           warning 36: Missing field 'bug-reports'
+             error 57: Synopsis must not be empty
+           warning 68: Missing field 'license'
+foo is now pinned to file://${BASEDIR}/OPAM/repo/default/packages/foo/foo.1 (version 1)
+The following actions will be performed:
+=== install 1 package
+  - install foo 1 (pinned)
+
+<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+-> retrieved foo.1  (file://${BASEDIR}/OPAM/repo/default/packages/foo/foo.1)
+-> installed foo.1
+Done.
+### ::: Produce the correct error message
+### : Ensure we have the right error messages when trying to install an opam
+### : file from a non-existant file given an absolute path.
+### opam install /foo/bar.opam
+opam: PACKAGES… arguments: Not a valid package specification or existing
+      file or directory: /foo/bar.opam
+Usage: opam install [OPTION]… [PACKAGES]…
+Try 'opam install --help' or 'opam --help' for more information.
+# Return code 2 #

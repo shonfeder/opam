@@ -966,6 +966,27 @@
    (run ./run.exe %{exe:../../src/client/opamMain.exe.exe} %{dep:inplace.test} %{read-lines:testing-env}))))
 
 (rule
+ (alias reftest-install-absolute-path)
+ (enabled_if (and  (or (<> %{env:TESTALL=1} 0) (= %{env:TESTN0REP0=0} 1))))
+ (action
+  (diff install-absolute-path.test install-absolute-path.out)))
+
+(alias
+ (name reftest)
+ (enabled_if (and  (or (<> %{env:TESTALL=1} 0) (= %{env:TESTN0REP0=0} 1))))
+ (deps (alias reftest-install-absolute-path)))
+
+(rule
+ (targets install-absolute-path.out)
+ (deps root-N0REP0)
+ (enabled_if (and  (or (<> %{env:TESTALL=1} 0) (= %{env:TESTN0REP0=0} 1))))
+ (package opam)
+ (action
+  (with-stdout-to
+   %{targets}
+   (run ./run.exe %{exe:../../src/client/opamMain.exe.exe} %{dep:install-absolute-path.test} %{read-lines:testing-env}))))
+
+(rule
  (alias reftest-install-check)
  (enabled_if (and  (or (<> %{env:TESTALL=1} 0) (= %{env:TESTN0REP0=0} 1))))
  (action
